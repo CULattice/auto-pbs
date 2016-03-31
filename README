@@ -10,6 +10,12 @@ launch_auto_PBS.sh ("the launch script")
 Quick guide to modifications necessary to get the script up and running for your job.
 Action points follow the "TODO" tags below.
 
+Credit: the PBS script is based heavily on an example script due to Ethan Neil. The
+algorithm used by the script was first explained to me on a whiteboard by Ethan
+(cf. script-flowchart.pdf), although I suspect the general idea must be much older.
+
+Most of the commenting in the PBS script was created by me.
+
 ##########################
 #                        #
 #   The PBS directives   #
