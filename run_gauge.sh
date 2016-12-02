@@ -78,6 +78,8 @@ echo "${this_script}"
 # Tuning other common "run parameters" #
 ########################################
 
+gammarat=125
+
 max_cg_iterations=500
 max_cg_restarts=10
 error_per_site="1.0e-8"
@@ -192,7 +194,7 @@ then
     then
         echo "$curr_time_utc" > ${cooldown_file}
         cd ${PBS_O_WORKDIR}
-        /usr/bin/rsh bc1p '/usr/local/pbs/bin/qsub -A ${A} -N ${N} ${this_script} ${args}'
+        /usr/bin/rsh bc1p "/usr/local/pbs/bin/qsub -A ${A} -N ${N} ${this_script} -F \"${args}\""
     else
         # TODO: Add support for a cron job to monitor delay_sub_file
         echo "Warning: thrashing detected - attempted to submit twice within ${diff_time_utc} sec."
@@ -462,8 +464,8 @@ if [[ -e $finalcfg && -e $finalout ]]
 then
     cd ${PBS_O_WORKDIR}
     echo "Current working directory $PWD"
-    echo "/usr/local/pbs/bin/qsub -A ${A} -N ${N} ${this_script} ${args}"
-    /usr/bin/rsh bc1p "/usr/local/pbs/bin/qsub -A ${A} -N ${N} ${this_script} ${args}"
+    echo "/usr/local/pbs/bin/qsub -A ${A} -N ${N} ${this_script} -F \"${args}\""
+    /usr/bin/rsh bc1p "/usr/local/pbs/bin/qsub -A ${A} -N ${N} ${this_script} -F \"${args}\""
 
 else
     echo "Critical error: final expected output/cfg not found!"

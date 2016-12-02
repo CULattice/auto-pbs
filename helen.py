@@ -15,8 +15,8 @@ def main():
 
     ensembles = [
         # (lattice_params,run_params) for each ensemble...
-        ({'nx':16,'nt':32,'beta':'7.50','k4':'0.1290','k6':'0.1308'},
-         {'configs_to_run':7,'config_limit':10,'exec':'su4_mrep_phi_bc1_mvapich_wj','nstep2':30,'nstep1':1}),
+        ({'nx':16,'nt':32,'beta':'7.55','k4':'0.1300','k6':'0.1325'},
+         {'configs_to_run':4,'config_limit':60,'exec':'su4_mrep_hmc_bc1_mvapich_wj','nstep2':30,'nstep1':1}),
         ]
 
     for (lattice_params,run_params) in ensembles:
@@ -63,9 +63,13 @@ def build_cmd(lattice_params, run_params=None, storage_params=None, pbs_params=N
             }
 
     if pbs_params is None:
+        k4 = lattice_params['k4'].split('.')[-1]
+        k6 = lattice_params['k6'].split('.')[-1]
+        b  = ''.join(lattice_params['beta'].split('.'))
+        stream_name = 'g'+'_'.join([b,k4,k6])
         pbs_params = {
             'A' : 'multirep',
-            'N' : 'hmc_{beta}_{k4}_{k6}'.format(**lattice_params),
+            'N' : stream_name,
             }
     ## Positinal arguments
     args = '{nx} {nt} {beta} {k4} {k6} '.format(**lattice_params)
@@ -74,14 +78,13 @@ def build_cmd(lattice_params, run_params=None, storage_params=None, pbs_params=N
     args+= '{A} {N}'.format(**pbs_params)
 
     ## The command itself
-    cmd_local  = "/Users/wijay/GitHub/auto-pbs/run_gauge.sh "
-    cmd_local += args
-    return cmd_local
+#    cmd_local  = "/lqcdproj/multirep/wjay/Run_SU4_Nf2_Nas2_1632/run_gauge.sh "
+#    cmd_local += args
+#    return cmd_local
 
-#    cmd  = "qsub -A {A} -N {N} run_gauge.sh ".format(**pbs_params)
-#    cmd += args
-#    print(cmd)
-#    os.system(cmd)
+    cmd  = "qsub -A {A} -N {N} /lqcdproj/multirep/wjay/Run_SU4_Nf2_Nas2_1632/run_gauge.sh ".format(**pbs_params)
+    cmd += '-F "' + args + '"' 
+    return cmd
 
 if __name__ == '__main__':
     main()
