@@ -12,7 +12,8 @@ resubmit themselves, effectively running for as long as desired.
  * ``helen.py`` - Script for easily submitting and launching multiple ensembles, which then run with the script run_gauge.sh
  * ``run_gauge.sh`` - Script for run gauge generation code at Fermilab. Accepts a myriad of positional arguments. Best called by a wrapper program like helen.py, although you can also call it directly from the command line.
 
- * ``???.sh`` - Script with all values hard-coded and accepting *no* command line physics arguments
+ * ``run_b7.75_kf0.1290_kas0.1290.sh`` - Script with all values hard-coded and accepting *no* command line physics arguments
+ * ``run_fresh_b7.75_kf0.1290_kas0.1290.sh`` - - Script with all values hard-coded and accepting *no* command line physics arguments **AND** that starts from a "fresh" lattice (as opposed to seeding it from some existing lattice)
  * ``launch_auto_PBS.sh`` - Script with an example of how to launch the hard-coded script
 
 Credit: the bash scripts are based heavily on an example scripts due to Ethan Neil. The
@@ -64,10 +65,10 @@ All of these parameters should have self-evident names and will obviously change
 with each new project.
 
  * TODO : Update your physics parameters in the PBS script.
- * TODO : Update run_traj to be the number of trajectories you want to run in a
+ * TODO : Update ``run_traj`` to be the number of configurations you want to run in a
     single submission of the PBS script. In general, the number will depend on
     the walltime requested in the PBS directives.
- * TODO : Update traj_limit to the final trajectory you ultimately want the whole
+ * TODO : Update ``traj_limit`` to the final configurations you ultimately want the whole
     stream to generate.
 
 ####   Directories and other general names
