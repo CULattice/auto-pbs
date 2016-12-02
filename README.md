@@ -30,7 +30,7 @@ The following changes may be necessary in **``helen.py``**, which launches the e
 
  * Line 56/57: Update with the name of your binary file
  * Line 62: Update with the name of your root storage directory
- * Line 70: Update with the name of your allocation (in our case, it's always multirep)
+ * Line 70: Update with the name of your allocation (in our case, it's always ``multirep``).
  * Line 71: Update with the name you would like the job to appear as in the queue. The name should be different for each ensemble or stream, so that multiple ensembles can run simultaneously. Probably the existing name is fine for most situations.
  * Line 85: Update the hard-coded location of the script ``run_gauge.sh``
  
@@ -38,8 +38,8 @@ The following changes may be necessary in **``run_gauge.sh``**, which calls MILC
 
   * Lines 24 - 36: Update the PBS option as necessary. 
     * Option ``-d`` should be the folder where "logfiles" (with error messages, etc...) are sent
-    * Option -l specifies the number of nodes to use and the walltime to request.
-    * Option -q specifies the queue to use (e.g., ``bc`` or ``test_bc``)
+    * Option ``-l`` specifies the number of nodes to use and the walltime to request.
+    * Option ``-q`` specifies the queue to use (e.g., ``bc`` or ``test_bc``)
   * Lines 104 - 116: Update the directory structure as necessary.
     * Line 107: ``execdir`` is the directory where your "MILC binary" lives
     * Line 170: change it ``grep`` on your username
@@ -49,26 +49,16 @@ The following changes may be necessary in **``run_gauge.sh``**, which calls MILC
 
 ### Using the hard-coded script
 
-
 Quick guide to modifications necessary to get the script up and running for your job.
 Action points follow the "TODO" tags below.
+DISCLAIMER: This script has a somewhat confused variable naming conventions regarding the words "trajectory" and "configuration", although it has been tested to run correctly.
 
 
-Most of the commenting in the PBS script was created by me.
-
-##########################
-#                        #
-#   The PBS directives   #
-#                        #
-##########################
+####   The PBS directives   
 
 TODO : Update these parameters as desired.
 
-#########################
-#                       #
-#   Physics parameters  #
-#                       #
-#########################
+####   Physics parameters  
 
 All of these parameters should have self-evident names and will obviously change
 with each new project.
@@ -80,11 +70,7 @@ TODO : Update run_traj to be the number of trajectories you want to run in a
 TODO : Update traj_limit to the final trajectory you ultimately want the whole
     stream to generate.
 
-#############################################
-#                                           #
-#   Directories and other general names     #
-#                                           #
-#############################################
+####   Directories and other general names
 
 The autosubmission script assumes that the following directory structure exists.
 
@@ -112,20 +98,12 @@ TODO : Make certain you created the folder ${rootstore}/Misc.
 TODO : Update variable names to agree with the executable, the executable's location,
     and the binary for "mpirun" (or whichever of its cousins you prefer).
 
-#########################################################################
-#                                                                       #
-#   Check the failsafe: if the failsafe file exists, stop immediately!  #
-#                                                                       #
-#########################################################################
+####   Check the failsafe: if the failsafe file exists, stop immediately!  
 
 TODO : Look at, set, and write down or remember the directory where the script
     will search for the failsafe file.
 
-######################################################
-#                                                    #
-#   Check for competing jobs on the same evolution.  #
-#                                                    #
-######################################################
+####   Check for competing jobs on the same evolution.  
 
 TODO : Modify instances of "wjay" to be your username
 TODO : If running someplace other than Fermilab, make sure that the long command
@@ -133,20 +111,12 @@ TODO : If running someplace other than Fermilab, make sure that the long command
     likely difference will is column placement in the qstat output, as reflected
     in the hard-coded numbers 3 and 5 in the awk command.
 
-#############################
-#                           #
-#   Resubmit this script.   #
-#                           #
-#############################
+####   Resubmit this script.   
 
 TODO : Modify the following line to give useful output in case of thrashing:
     echo "${PBS_O_WORKDIR}/wjay_multirep_auto_PBS.sh" >> ${delay_sub_file}
 
-#########################################
-#                                       #
-#   Determine the trajectory number.    #
-#                                       #
-#########################################
+####   Determine the trajectory number.
 
 The PBS script automatically detects the last configuration and outputfiles
 generated by the stream and starts up immediately after them. In order for this
