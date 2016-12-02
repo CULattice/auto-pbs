@@ -1,18 +1,58 @@
 # auto-pbs
 
+## General information
+
 README file for "PBS auto-submission" scripts for use on Fermilab clusters.
 
-This package contains two scripts:
+This package contains a variety of scripts for running jobs at Fermilab which
+resubmit themselves, effectively running for as long as desired.
 
-wjay_multirep_auto_PBS.sh ("the PBS script")
-launch_auto_PBS.sh ("the launch script")
+ * ``script-flowchart.pdf`` - Picture of a whiteboard discussion describing the flow the auto-resubmission scripts
+
+ * ``helen.py`` - Script for easily submitting and launching multiple ensembles, which then run with the script run_gauge.sh
+ * ``run_gauge.sh`` - Script for run gauge generation code at Fermilab. Accepts a myriad of positional arguments. Best called by a wrapper program like helen.py, although you can also call it directly from the command line.
+
+ * ``???.sh`` - Script with all values hard-coded and accepting *no* command line physics arguments
+ * ``launch_auto_PBS.sh`` - Script with an example of how to launch the hard-coded script
+
+Credit: the bash scripts are based heavily on an example scripts due to Ethan Neil. The
+algorithm used by the script was first explained to me on a whiteboard by Ethan
+(cf. script-flowchart.pdf), although I suspect the general idea must be much older.
+
+## Getting up and running
+
+### Using the all-purpose script
+
+Decide where your "root storage" directory will be for data, and make the directories where things will be saved.
+In this "root storage" directory, make the folder ``Misc``.
+
+The following changes may be necessary in **``helen.py``**, which launches the ensembles.
+
+ * Line 56/57: Update with the name of your binary file
+ * Line 62: Update with the name of your root storage directory
+ * Line 70: Update with the name of your allocation (in our case, it's always multirep)
+ * Line 71: Update with the name you would like the job to appear as in the queue. The name should be different for each ensemble or stream, so that multiple ensembles can run simultaneously. Probably the existing name is fine for most situations.
+ * Line 85: Update the hard-coded location of the script ``run_gauge.sh``
+ 
+The following changes may be necessary in **``run_gauge.sh``**, which calls MILC code and resubmits itself to the queue.
+
+  * Lines 24 - 36: Update the PBS option as necessary. 
+    * Option ``-d`` should be the folder where "logfiles" (with error messages, etc...) are sent
+    * Option -l specifies the number of nodes to use and the walltime to request.
+    * Option -q specifies the queue to use (e.g., ``bc`` or ``test_bc``)
+  * Lines 104 - 116: Update the directory structure as necessary.
+    * Line 107: ``execdir`` is the directory where your "MILC binary" lives
+    * Line 170: change it ``grep`` on your username
+    * Line 172: change to your username
+    * Lines 245/246: If your file names aren't of the form ``somefilename_count``, where ``count`` is the configuration number, modify the regex processing to extract the configuration number correctly.
+
+
+### Using the hard-coded script
+
 
 Quick guide to modifications necessary to get the script up and running for your job.
 Action points follow the "TODO" tags below.
 
-Credit: the PBS script is based heavily on an example script due to Ethan Neil. The
-algorithm used by the script was first explained to me on a whiteboard by Ethan
-(cf. script-flowchart.pdf), although I suspect the general idea must be much older.
 
 Most of the commenting in the PBS script was created by me.
 
