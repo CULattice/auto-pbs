@@ -56,18 +56,18 @@ DISCLAIMER: This script has a somewhat confused variable naming conventions rega
 
 ####   The PBS directives   
 
-TODO : Update these parameters as desired.
+ * TODO : Update these parameters as desired.
 
 ####   Physics parameters  
 
 All of these parameters should have self-evident names and will obviously change
 with each new project.
 
-TODO : Update your physics parameters in the PBS script.
-TODO : Update run_traj to be the number of trajectories you want to run in a
+ * TODO : Update your physics parameters in the PBS script.
+ * TODO : Update run_traj to be the number of trajectories you want to run in a
     single submission of the PBS script. In general, the number will depend on
     the walltime requested in the PBS directives.
-TODO : Update traj_limit to the final trajectory you ultimately want the whole
+ * TODO : Update traj_limit to the final trajectory you ultimately want the whole
     stream to generate.
 
 ####   Directories and other general names
@@ -77,9 +77,9 @@ The autosubmission script assumes that the following directory structure exists.
 rootstore : The "root" storage directory which contains all the long-term
             storage folders for gauge configurations and output files.
 
-    rootstore/cfgstore : Storage folder for gauge configurations.
-    rootstore/outstore : Storage folder for output files.
-    rootstore/Misc     : Storage folder for "cooldown" and "delay_sub_list" files
+ * ``rootstore/cfgstore``: Storage folder for gauge configurations.
+ * ``rootstore/outstore``: Storage folder for output files.
+ * ``rootstore/Misc``: Storage folder for "cooldown" and "delay_sub_list" files
 
 The script does *not* automatically build this directory structrue. It is the
 user's responsibility to make sure that the directory strucutre exists before
@@ -90,31 +90,31 @@ the various physics paramters. Of course, the idea is that the user should choos
 unique and sensible names.
 
 The folder rootstore/Misc has a hard-coded name. Given a user-defined rootstore,
-${rootstore}/Misc must exist. (Or the script will need modification.)
+``${rootstore}/Misc`` must exist. (Or the script will need modification.)
 
-TODO : Construct the aforementioned directory structure.
-TODO : Update variable names to agree with your choices for directory names.
-TODO : Make certain you created the folder ${rootstore}/Misc.
-TODO : Update variable names to agree with the executable, the executable's location,
-    and the binary for "mpirun" (or whichever of its cousins you prefer).
+ * TODO : Construct the aforementioned directory structure.
+ * TODO : Update variable names to agree with your choices for directory names.
+ * TODO : Make certain you created the folder ``${rootstore}/Misc``.
+ * TODO : Update variable names to agree with the executable, the executable's location,
+    and the binary for ``mpirun`` (or whichever of its cousins you prefer).
 
 ####   Check the failsafe: if the failsafe file exists, stop immediately!  
 
-TODO : Look at, set, and write down or remember the directory where the script
+ * TODO : Look at, set, and write down or remember the directory where the script
     will search for the failsafe file.
 
 ####   Check for competing jobs on the same evolution.  
 
-TODO : Modify instances of "wjay" to be your username
-TODO : If running someplace other than Fermilab, make sure that the long command
-    following "qstat -l | ..." correctly looks for other jobs. Probably the most
+ * TODO : Modify instances of "wjay" to be your username
+ * TODO : If running someplace other than Fermilab, make sure that the long command
+    following ``qstat -l | ...`` correctly looks for other jobs. Probably the most
     likely difference will is column placement in the qstat output, as reflected
     in the hard-coded numbers 3 and 5 in the awk command.
 
 ####   Resubmit this script.   
 
-TODO : Modify the following line to give useful output in case of thrashing:
-    echo "${PBS_O_WORKDIR}/wjay_multirep_auto_PBS.sh" >> ${delay_sub_file}
+ * TODO : Modify the following line to give useful output in case of thrashing:
+    echo ``${PBS_O_WORKDIR}/wjay_multirep_auto_PBS.sh >> ${delay_sub_file}``
 
 ####   Determine the trajectory number.
 
@@ -124,12 +124,12 @@ automatic detection to work, the PBS script must know something about where the
 trajectory number is stored.
 
 My usage assumes that all output files and gauge configurations end with an
-underscore followed by the trajectory number, i.e., *_${traj_number}.
+underscore followed by the trajectory number, i.e., ``*_${traj_number}``.
 
 In the case of different file naming conventions or delimiters, changes are
 necessary.
 
-TODO : As necessary, modify the regex processing to extract trajectory numbers.
+ * TODO : As necessary, modify the regex processing to extract trajectory numbers.
 
 
 
