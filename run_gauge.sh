@@ -34,7 +34,7 @@
 # Positional arguments from command line #
 ##########################################
 
-this_script=${0}
+#this_script=${0}
 
 nx=${1}
 nt=${2}
@@ -52,6 +52,8 @@ rootstore=${11}
 
 A=${12}
 N=${13}
+
+this_script="${rootstore}/run_gauge.sh"
 
 # Bundle the command line arguments for resubmission
 args="${nx} ${nt} ${beta} ${k4} ${k6} ${exec} ${configs_to_run} ${config_limit} ${nstep2} ${nstep1} ${rootstore} ${A} ${N}"
