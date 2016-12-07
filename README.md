@@ -46,7 +46,7 @@ The following changes may be necessary in **``run_gauge.sh``**, which calls MILC
     * Line 170: change it ``grep`` on your username
     * Line 172: change to your username
     * Lines 245/246: If your file names aren't of the form ``somefilename_count``, where ``count`` is the configuration number, modify the regex processing to extract the configuration number correctly.
-
+ * Line 146: Update the location where the script should look for the failsafe file.
 
 ### Using the hard-coded script
 
